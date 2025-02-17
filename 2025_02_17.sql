@@ -187,6 +187,14 @@ SELECT *
 FROM emp
 WHERE sal = (SELECT MAX(sal) FROM emp e2 WHERE e2.deptno = emp.deptno);             -- 상관 서브쿼리
 
+SELECT e1.*
+FROM emp e1
+JOIN (
+    SELECT deptno, MAX(sal) AS max_sal
+    FROM emp
+    GROUP BY deptno
+) e2 ON e1.deptno = e2.deptno AND e1.sal = e2.max_sal;
+
 SELECT * FROM EMP WHERE sal IN(SELECT MAX(SAL) FROM emp GROUP BY deptno);
 
 -- 문제 6)
